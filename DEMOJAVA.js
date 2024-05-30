@@ -21,41 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
    const profileOption = document.querySelector('a[href="http://127.0.0.1:5502/profile.html"]');
       
 
-   // If the success parameter is true, enable clicking on the "Lost" option
-//    if (success === 'true') {
-//        lostOption.addEventListener('click', function(event) {
-//            // Allow navigation to the "Lost" page
-//        });
-//        foundOption.addEventListener('click', function(event) {
-//         // Allow navigation to the "Lost" page
-//     });
-//     contactusOption.addEventListener('click', function(event) {
-//         // Allow navigation to the "Lost" page
-//     });
-//     profileOption.addEventListener('click', function(event) {
-//         // Allow navigation to the "Lost" page
-//     });
-
-//    } else {
-//        // If the success parameter is false or not present, prevent clicking on the "Lost" option
-//        lostOption.addEventListener('click', function(event) {
-//            event.preventDefault();
-//            alert('Please sign in to access the Lost option.');
-//        });
-//        foundOption.addEventListener('click', function(event) {
-//         event.preventDefault();
-//         alert('Please sign in to access the found option.');
-//     });
-//     contactusOption.addEventListener('click', function(event) {
-//         event.preventDefault();
-//         alert('Please sign in to access the contact us option.');
-//     });
-//     profileOption.addEventListener('click', function(event) {
-//         event.preventDefault();
-//         alert('Please sign in to access the profile option.');
-//     });
-
-//    }
+   
 console.log('successs',success);
 if (success === 'true') {
     // Allow navigation to the restricted pages

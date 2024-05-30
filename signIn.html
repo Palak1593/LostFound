@@ -84,7 +84,7 @@ signInForm.addEventListener('submit', async function(event) {
 
     if (response.ok) {
         // If sign-in is successful, redirect to the homepage with a success parameter
-        window.location.href = `http://127.0.0.1:5502/DEMOHTML.html?success=true&useremail=${emailOfUser}`;
+        window.location.href = `http://127.0.0.1:5502/index.html?success=true&useremail=${emailOfUser}`;
         alert('User signed in successfully!');
     } else {
         // If sign-in fails, reload the current page
