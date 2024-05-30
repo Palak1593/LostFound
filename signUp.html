@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<head>
+<link rel="stylesheet" href="signUp.css">
+<title>SignUp</title>
+</head>
+<body>
+ 
+    <div class="login-signup" id="main">
+        <div class="sign-up">
+            <form id="signupForm" method="post">
+                <h1>Create Account</h1>
+                <input type="text" name="txt" placeholder="Name" required="" class="name" id="name">
+                <input type="email" name="email" placeholder="Email" required="" class="email" id="email1">
+                <input type="password" name="pswd" placeholder="Password" required="" class="pswd" id="pswd1">
+                <input type="tel" name="contact" placeholder="Contact" required="" class="contact" id="contact1">
+                <button id="signUp" type="submit">Sign Up</button>
+            </form>
+        </div>
+       
+    </div>
+    <div class="overlay-right">
+        <h1>Hello, Friends</h1>
+        <p>Enter your personal details and start journey with us</p>
+    </div>
+     
+   
+</div>
+
+<script type="text/javascript" defer>
+    document.addEventListener('DOMContentLoaded', function() {
+        const signUpButton = document.getElementById('signUp');
+       const signUpForm = document.getElementById('signupForm');
+        const main = document.getElementById('main');
+
+        console.log("ghvh",signUpForm); 
+       // console.log("signin",signInForm); 
+
+        signUpButton.addEventListener('click', function() {
+            console.log('Sign Up button clicked');
+            main.classList.add("right-panel-active");
+        });
+
+
+  //API FOR SIGN UP 
+        signUpForm.addEventListener('submit',async function(event) {
+            event.preventDefault();
+
+            // Fetch input values
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email1').value;
+            var password = document.getElementById('pswd1').value;
+            var contact = document.getElementById('contact1').value;
+
+            var isContactValid = validateContact(contact);
+            var isEmailValid = validateEmail(email);
+            var isPasswordValid = validatePassword(password);
+            //var isNameValid=validateName(name);
+
+            // Validation
+       // if (!validateContact(contact) || !validateEmail(email) || !validatePassword(password)) {
+            // If validation fails, prevent further execution
+         //   return;
+        //}
+        if (!isContactValid || !isEmailValid || !isPasswordValid ) {
+            // If any validation fails, prevent further execution
+            return;
+        }
+
+            // Create user object
+            var user = {
+                name: name,
+                email: email,
+                password: password,
+                contact:contact
+            };
+
+            // Send user data to backend using fetch API
+             await   fetch('http://localhost:3000/api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            })
+       
+           
+            .then(response => {
+                if (response.ok) {
+                    return response.json(); // Parse the JSON response
+                } else {
+                    throw new Error('Network response was not ok.');
+                }
+            })
+            .then(data => {
+                if (data.exists) {
+                    // User already exists, show alert box with details
+                    alert(`User with the following ${data.field} is already registered.`);
+                   
+                }else {
+                console.log('Success:', data);
+                alert('User registered successfully!');
+                window.location.reload();
+                window.location.href = 'http://127.0.0.1:5500/Lost-Found-Website/signIn.html';
+                }
+
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Registration failed. Please try again later.');
+            });
+        });
+        
+
+        function validateName(name) {
+            // Check if the name is null, empty, or contains only whitespace
+            if (name === null || name.trim() === '') {
+                return false; // Name is invalid
+            } else {
+                return true; // Name is valid
+            }
+        }
+        
+
+        // Validation functions
+    function validateContact(contact) {
+   //      Validate that the contact has exactly 10 digits
+        if (contact.match(/^\d{10}$/)) {
+            return true;
+        } else {
+            alert("Invalid Contact number. It should have exactly 10 digits.");
+           return false;
+        }
+   }
+
+    function validateEmail(email) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!regex.test(email)) {
+            alert("Invalid Email address");
+            return false;
+        }
+        return true;
+    }
+
+    function validatePassword(password) {
+      
+        let errorMessage = ""; // Initialize an empty error message
+
+            // Validate password criteria
+            if (password.length < 8 || password.length > 15) {
+                errorMessage += "Password must be between 8 and 15 characters.\n";
+            }
+            if (!/[a-z]/.test(password)) {
+                errorMessage += "Password must contain at least one lowercase letter.\n";
+            }
+            if (!/[A-Z]/.test(password)) {
+                errorMessage += "Password must contain at least one uppercase letter.\n";
+            }
+            if (!/\d/.test(password)) {
+                errorMessage += "Password must contain at least one digit.\n";
+            }
+            if (!/[@$!%*?&]/.test(password)) {
+                errorMessage += "Password must contain at least one special character.\n";
+            }
+            if (/\s/.test(password)) {
+                errorMessage += "Password must not contain whitespace characters.\n";
+            }
+
+            // Display the accumulated error message, if any
+            if (errorMessage !== "") {
+                alert(errorMessage);
+                return false; // Password is invalid
+            }
+            return true; // Password is valid
+    }
+
+    window.addEventListener('pageshow', function(event) {
+        var historyTraversal = event.persisted || 
+                               (typeof window.performance != 'undefined' && 
+                                window.performance.navigation.type === 2);
+        if (historyTraversal) {
+
+            // Reload the page to ensure it's refreshed when navigated back
+            window.location.reload();
+        }
+    });
+});
+  
+
+   // });
+</script>
+
+</body>
+</html> 
+

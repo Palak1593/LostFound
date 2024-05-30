@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<head>
+<link rel="stylesheet" href="login.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"> -->
+<title>SignUp-SignIn</title>
+</head>
+<body>
+ <div class="login-signup" id="main">
+    <div class="sign-up">
+       <!-- <form action="#"> -->
+        <form id="signupForm" method="post">
+
+            <h1>Create Account</h1>
+            <!-- <div class="social-login-signup">
+                <a href="https://www.facebook.com/r.php" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href=https://accounts.google.com/signup class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="https://www.linkedin.com/signup"  class="social"><i class="fab fa-linkedin-in"></i></a>
+                
+            </div> -->
+            <!-- <p>or use your email for registration</p> -->
+            <input type="text" name="txt" placeholder="Name" required="" class="name" id="name">
+            <input type="email" name="email" placeholder="Email" required="" class="email" id="email1">
+            <input type="password" name="pswd" placeholder="Password" required="" class="pswd" id="pswd1">
+            <input type="tel" name="contact" placeholder="Contact" required="" class="contact" id="contact1">
+            <button>Sign Up</button>
+
+        </form>
+    </div>
+
+
+    <div class="sign-in">
+        <form id="signinform" method="post">
+            <h1>Sign in</h1>
+            <!-- <div class="social-login-signup">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                
+            </div> -->
+            <!-- <p>or use your account</p> -->
+          
+            <input type="email" name="email" placeholder="Email" required="" class="email" id="email2">
+            <input type="password" name="pswd" placeholder="Password" required="" class="pswd" id="pswd2">
+            <a href="http://127.0.0.1:5500/forgetpass.html">Forget your Password?</a>
+            <button>Sign In</button>
+
+        </form>
+    </div>
+    
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-left">
+                <h1>Welcome Back</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <button id="signIn">Sign In</button>
+            </div>
+ 
+            <div class="overlay-right">
+                <h1>Hello, Friends</h1>
+                <p>Enter your personnal details and start journey with us</p>
+                <button id="signUp" type="signUp">Sign Up</button>
+            </div>
+
+        </div>
+    </div>
+     
+   
+</div>
+<script type="text/javascript" defer>
+    document.addEventListener('DOMContentLoaded', function() {
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+       const signUpForm = document.getElementById('signupForm');
+       const signInForm = document.getElementById('signinform');
+        const main = document.getElementById('main');
+
+        console.log("ghvh",signUpForm); 
+        console.log("signin",signInForm); 
+
+        signUpButton.addEventListener('click', function() {
+            console.log('Sign Up button clicked');
+            main.classList.add("right-panel-active");
+        });
+
+        signInButton.addEventListener('click', function() {
+            main.classList.remove("right-panel-active");
+            console.log('Sign In button clicked');
+        });
+
+  //API FOR SIGN UP 
+        signUpForm.addEventListener('submit',async function(event) {
+            event.preventDefault();
+
+            // Fetch input values
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email1').value;
+            var password = document.getElementById('pswd1').value;
+            var contact = document.getElementById('contact1').value;
+
+
+            // Create user object
+            var user = {
+                name: name,
+                email: email,
+                password: password,
+                contact:contact
+            };
+
+            // Send user data to backend using fetch API
+             await   fetch('http://localhost:3000/api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            })
+       
+           
+            .then(response => {
+                if (response.ok) {
+                    return response.json(); // Parse the JSON response
+                } else {
+                    throw new Error('Network response was not ok.');
+                }
+            })
+            .then(data => {
+                console.log('Success:', data);
+                alert('User registered successfully!');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Registration failed. Please try again later.');
+            });
+        });
+        
+  
+signInForm.addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    var email = document.getElementById('email2').value;
+    var password = document.getElementById('pswd2').value;
+
+    // Create user object
+    var User = {
+        email: email,
+        password: password
+    };
+
+    try {
+        // Send user data to backend using fetch API
+        const response = await fetch('http://localhost:3000/api/signin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(User)
+        });
+       
+        if (response.ok) {
+            // If sign-in is successful, redirect to the homepage with a success parameter
+            window.location.href = 'http://127.0.0.1:5501/DEMOHTML.html?success=true';
+            alert('User signed in successfully!');
+        } else {
+            // If sign-in fails, redirect to the homepage with a failure parameter
+            window.location.href = 'http://127.0.0.1:5501/DEMOHTML.html?success=false';
+            throw new Error('Network response was not ok.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Signing In failed.');
+    }
+});
+
+
+
+    });
+</script>
+
+</body>
+</html>

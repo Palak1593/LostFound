@@ -1,0 +1,39 @@
+<html>
+    <head>
+    <link rel="stylesheet" href="cartoonL.css">
+    </head>
+    <body>
+<div class="snowman">
+    <div class="snow-face">
+        <div class="tear right-tear"></div>       
+    </div>
+    <div class="snow-nose">
+        
+    </div>
+    <div class="mouth"></div>
+    <div class="buttons"></div>
+    <div class="arm right"></div>
+    <div class="arm left"></div>
+    
+    <button class="buttonR" onclick="openReportPage()">Report Lost Items</button>
+    <button class="buttonRR"onclick="openSearchPage()">Search Lost Items</button>
+</div>
+    <div class="shadow"></div>
+    </body>
+    <script>
+        function openReportPage() {
+            // Specify the URL you want to navigate to
+           // var url = "http://127.0.0.1:5501/CARD_LOST.html";
+        
+            // Open the URL in a new tab or window
+           // window.open(url);
+           window.location.href="http://127.0.0.1:5502/CARD_LOST.html";
+        }
+        function openSearchPage(){
+            //var url="http://127.0.0.1:5501/CARDLOST.html";
+            //window.open(url);
+            window.location.href="http://127.0.0.1:5502/CARDLOST.html";
+    }
+    </script>
+</html>
+

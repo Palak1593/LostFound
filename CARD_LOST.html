@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: linear-gradient(181.2deg, rgb(181, 239, 249) 10.5%, rgb(254, 254, 254) 86.8%);
+        }
+        .wrapper {
+            width: 800px;
+            height: 600px;
+            position: relative;
+            margin: 3% auto;
+            box-shadow: 2px 18px 70px 0px #9D9D9D;
+            overflow: hidden;
+        }
+        
+        .login-text {
+            width: 800px;
+            height:450px;
+            background: linear-gradient(to top, #48c6ef 0%, #6f86d6 100%);; 
+            position: absolute;
+            top: -300px;
+            box-sizing: border-box;
+            padding: 6%;
+            transition: all 0.5s ease-in-out;
+            z-index: 11;
+        }
+        
+        .text {
+            margin-left: 20px;
+            color: #fff;
+            display: none;
+            transition: all 0.5s ease-in-out;
+            transition-delay: 0.3s;
+          
+        
+            a, a:visited {
+                font-size: 36px;
+                color: #fff;
+                text-decoration: none;  
+                font-weight: bold;
+                display: block;
+            }
+        
+            hr {
+                width: 10%;
+                float: left;
+                background-color: #fff;
+                font-size: 16px;
+            }
+        
+           
+        
+           
+        
+            button {
+                margin-top: 60px;
+                height: 40px;
+                width: 140px;
+                outline: none;
+            }
+        
+            
+        }
+        
+        .cta {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #696a86;
+            border: 2px solid #fff;
+            position: absolute;
+            bottom: -30px;
+            left: 370px;
+            color: #fff;
+            outline: none;
+            cursor: pointer;
+            z-index: 11;
+
+            :hover {
+                cursor: pointer;
+            }
+        }
+        
+        .call-text {
+            background-color: #fff;
+            width: 800px;
+            height: 450px;
+            position: absolute;
+            bottom: 0;
+            padding: 10%;
+            box-sizing: border-box;
+            text-align: center;
+            
+        
+            h1 {
+                font-size: 42px;
+                margin-top: 10%;
+                color: #696a86;
+        
+                span {
+                    color: #333;
+                    font-weight: bolder;
+                    
+                }
+            }
+        
+            button {
+                height: 40px;
+                width: 180px;
+                border: none;
+                border-radius: 20px;
+                background: linear-gradient(to left, #ab68ca, #de67a3); 
+                color: #fff;
+                font-weight: bolder;
+                margin-top: 30px;
+                cursor: pointer;
+                outline: none;
+            }
+        }
+        
+        .show-hide {
+            display: block;
+        }
+        
+        .expand {
+            transform: translateY(300px);
+        }
+
+        textarea {
+            width: 100%; /* Set the width to 100% to make it expand to the container's width */
+            width:300px;
+           /* Add margin between input fields */
+           /* Add padding within each input field */
+            
+        }
+         
+        input{
+            width: 100%;
+            height:30px;
+            width:300px;
+            margin-bottom: 5px; /* Add margin between input fields */
+    /* Add padding within each input field */
+        }
+        select {
+            width: 100%;
+            height:40px;
+            width:307px;
+            color:grey;
+             margin-bottom:10px;/* Add margin between input fields */
+            /* Add padding within each input field */
+        }
+        #submit{
+            width: 100%;
+            height:30px;
+            width:100px;
+        }
+        
+       
+        input[type="checkbox"] {
+            /* Hide the default checkbox appearance */
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ccc; /* Border color for unchecked state */
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            vertical-align: middle;
+            margin-right: 10px; /* Adjust as needed */
+            margin-bottom: 20px;
+        }
+        
+        input[type="checkbox"]:checked {
+            /* Change background color for checked state */
+            background-color:white; /* Change to your desired color */
+        }
+        label {
+            font-size: 16px; /* Adjust as needed */
+            color: #333; /* Text color */
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: middle;
+            margin-bottom: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="login-text">
+            <button class="cta"><i class="fas fa-chevron-down fa-1x"></i></button>
+            <div class="text"><b>Find what's lost!</b>
+                <hr>
+                <form id="lostpage" method="post" enctype="multipart/form-data">
+                    <br>
+                    <input type="text" name="txt" placeholder="Name of item Lost" required="" class="input" height="30px" width="30px" id="name_of_item">
+                    <br>
+                    <select class="select_place" id="select_place" onchange="handlePlaceSelect()">
+                        <option value="" disabled selected>Select a place</option>
+                        <option value="jaggi" id="jaggi">jaggi</option>
+                        <option value="cos" id="cos">Cos</option>
+                        <option value="None" id="none">None</option>
+                    </select>
+                    <br>
+                    <input type="text" name="place" placeholder="Place where item Lost" class="input" id="place" required disabled>
+                    <br>
+                    <br>
+                    <textarea id="textarea" rows="5" columns="10" placeholder="Description of item lost" class="input"></textarea>
+                    <!-- <input type="text" name="txt" placeholder="Contact no." required="" class="input" id="contact" required> -->
+                    <br>
+                    <!-- <p>Do you want to show your contact no.?</p> -->
+                    <!-- <input type="checkbox" name="yes" id="yesCheckbox" onclick="toggleCheckbox(this)"> -->
+                    <!-- <label for="yesCheckbox">Yes</label> -->
+                  <!-- <input type="checkbox" name="no" id="noCheckbox" onclick="toggleCheckbox(this)"> -->
+                  <!-- <label for="noCheckbox">No</label> -->
+                  <input type="file" id="image" name="image" accept="image/*" class="file"  >
+                  <input type="tel" name="contact" placeholder="Contact" required="" class="contact" id="contact">
+                  <br>
+                    <input type="submit" value="Submit" id="submit">
+                    <br>
+                </form>
+            </div>
+        </div>
+        <div class="call-text">
+            <h1>Lost? Don't fret, we'll help you find it.</h1>
+            <h3><i>Recover Lost Possessions...</i></h3>
+        </div>
+    </div>
+</body>
+
+<script>
+    //function toggleCheckbox(checkbox) {
+      //  var otherCheckbox = checkbox.id === "yesCheckbox" ? "noCheckbox" : "yesCheckbox";
+        //if (checkbox.checked) {
+          //document.getElementById(otherCheckbox).checked = false;
+        //}
+     // }
+
+function handlePlaceSelect() {
+        // Get the selected place from the dropdown list
+        const selectedPlace = document.getElementById("select_place").value;
+
+        // Check if the user has selected "None"
+        if (selectedPlace === "None") {
+            // Enable the input field for the place name
+            document.getElementById("place").disabled = false;
+        } else {
+            // Disable the input field for the place name
+            document.getElementById("place").disabled = true;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        var cta = document.querySelector(".cta");
+        var check = 0;
+
+        cta.addEventListener('click', function(e) {
+            var text = e.target.nextElementSibling;
+            var loginText = e.target.parentElement;
+            text.classList.toggle('show-hide');
+            loginText.classList.toggle('expand');
+            if (check == 0) {
+                cta.innerHTML = "<i class=\"fas fa-chevron-up\"></i>";
+                check++;
+            } else {
+                cta.innerHTML = "<i class=\"fas fa-chevron-down\"></i>";
+                check = 0;
+            }
+        });
+
+        document.getElementById("select_place").addEventListener("change", handlePlaceSelect);
+
+        function validateForm() {
+            const nameOfItem = document.getElementById("name_of_item").value;
+            const contact = document.getElementById("contact").value;
+
+            // Check if "Name of item Found" is filled and "Contact no." is a positive 10-digit number
+            if (nameOfItem.trim() === '') {
+                alert("Please fill in 'Name of item Found'.");
+                return false; // Prevent form submission
+            }
+
+            if (!/^\d{10}$/.test(contact)) {
+                alert("Please provide a valid 10-digit positive number for 'Contact no.'.");
+                return false; // Prevent form submission
+            }
+
+            // If both conditions are met, the form will be submitted
+            return true;
+        }
+
+        function handlePlaceSelect() {
+            // Get the selected place from the dropdown list
+            const selectedPlace = document.getElementById("select_place").value;
+
+            // Check if the user has selected "None"
+            if (selectedPlace === "None") {
+                // Enable the input field for the place name
+                document.getElementById("place").disabled = false;
+            } else {
+                // Disable the input field for the place name
+                document.getElementById("place").disabled = true;
+            }
+        }
+
+        document.getElementById("lostpage").addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            //Get other form data
+    const formData = new FormData();
+    formData.append('name_of_item_lost', document.getElementById('name_of_item').value);
+    formData.append('select_place', document.getElementById('select_place').value);
+    formData.append('description', document.getElementById('textarea').value);
+    formData.append('place', document.getElementById('place').value);
+    formData.append('contact', document.getElementById('contact').value);
+    // Append the image file to the form data
+    formData.append('image', document.getElementById('image').files[0]);
+
+    console.log(formData);
+
+            // Validate the form before submitting
+            if (validateForm()) {
+                console.log("Form validation passed. Submitting form...");
+                // Form submission logic here
+            
+          
+            // Create user object
+            var user = {
+                name_of_item_lost: document.getElementById('name_of_item').value,
+                select_place: document.getElementById("select_place").value,
+                description: document.getElementById("textarea").value,
+                place: document.getElementById("place").value,
+               // show_contact: document.getElementById("yesCheckbox").checked // Add checkbox status
+               contact:document.getElementById("contact").value,
+               image: document.getElementById('image')
+            };
+         //   if (user.select_place !== "None") {
+           //     delete user.place;}
+                console.log("place:",user.place);
+        
+            console.log(JSON.stringify(user)); // Log the request payload before sending
+         
+            try {
+                const response = await fetch("http://localhost:3000/api/lostpage", {
+                    method: 'POST',
+                    headers: {
+                        //'Content-Type': 'application/json'
+                        //'Content-Type': 'multipart/form-data'
+                    },
+                    //body: JSON.stringify(user)
+                   body:formData
+                 
+                });
+        
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
+                }
+
+                if (response.status === 400) {
+                    const errorData = await response.json();
+                    console.log('Validation Error:', errorData);
+                    // Handle validation error, e.g., display error messages to the user
+                }
+                
+        
+                const data = await response.json(); // Parse the JSON response
+                console.log('Success:', data);
+                alert('Lost data input successfully!');
+                window.location.reload();
+                window.location.href="http://127.0.0.1:5501/CARDLOST.html";
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Lost data input failed. Please try again later.');
+            }
+        } else {
+            console.log("Form validation failed. Form not submitted.");
+        }
+            // Handle validation errors from the server response
+
+        });
+        
+    });
+
+</script>
+
+</html>

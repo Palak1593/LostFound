@@ -1,0 +1,330 @@
+
+/* DEMO CSS */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Poppins',sans-serif;
+  }
+  body{
+   
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    /* background: linear-gradient(to top, #30cfd0 0%, #330867 100%); */
+    background: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+
+  } 
+  
+
+  .navbar {
+    background: linear-gradient(111.5deg, rgb(228, 247, 255) 21.9%, rgb(255, 216, 194) 92.2%);
+
+    /* background: linear-gradient(69.8deg, rgb(25, 49, 108) 2.8%, rgb(1, 179, 201) 97.8%); */
+    position: fixed;
+    top: 0; /* Place the navbar at the top */
+    left: 0; /* Place the navbar at the right side */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70px; /* Adjust the width to your preference */
+    height: 100vh; /* Make it full height */
+    z-index: 2;
+    justify-content: space-around; /* Center the items vertically */
+  }
+  
+  
+  .navbar ul {
+    display: flex;
+    flex-direction: column; /* Display items vertically */
+    list-style: none;
+  }
+  
+  
+
+  
+  .navbar ul li {
+    width: 100%;
+  }
+  
+   
+.navbar ul li a {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    font-weight: 500;
+    position: relative;
+  }
+
+  .navbar ul li a .circle {
+    width: 100%; /* Fully encompass the icons horizontally */
+    height: 100%; /* Fully encompass the icons vertically */
+    border-radius: 50%;
+    transform: translateX(-50%) translateY(-50%) scale(0); /* Center the circle */
+    transition-delay: 0.5s;
+  }
+  
+
+
+
+.navbar ul li.active a .circle
+{
+    transform: translateY(-37px) scale(1);
+    
+    transition: 0.5s;
+    transition-delay: 0.5s;
+    /* opacity:1; */
+ }
+
+
+.text-box {
+  /* background: radial-gradient(circle at 0.7% 1%, rgb(215, 248, 247) 0%, rgb(102, 188, 239) 100.2%); */
+  background: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(63, 76, 119) 70.2%);
+
+  
+     -webkit-background-clip: text;
+    color: transparent;
+
+    -webkit-text-stroke: 1px #ffffff;
+    /* -webkit-text-stroke: 8px #002D62; */
+    margin: 10px;
+    animation: back 20s linear infinite;
+    background-position:0 0 ;
+    position:absolute;
+    top: 20px;
+    /* margin-left: 15px; */
+    margin-left: 100px;
+    font-size:65px;
+    animation: float 2s ease-in-out infinite;
+}
+
+ 
+  @keyframes float {
+    0% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(0, -10px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+/* .wrapper{
+    box-sizing: content-box;
+    background-color: #ffffff;
+    border:#fff;
+    height:60px;
+    width:500px;
+    box-shadow: 0 20px 25px rgba(0,0,0,0.2); */
+    /* margin-right:70%; */
+    /* display: flex;
+    margin-bottom: 0%; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* margin: 0 auto; */
+/* } */
+
+.text-box1{
+    /* color:white; */
+    font-variant: small-caps;
+    margin-bottom:8%;
+    font-size: 27px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: italic;
+    word-spacing: 5px;
+    /* margin-left: 1.5%; */
+    margin-left: 110px;
+   
+   /* background: #89CFF0; */
+    background: linear-gradient(171.8deg, rgb(5, 111, 146) 13.5%, rgb(6, 57, 84) 78.6%);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.navbar ul li a .icon {
+    position: relative;
+    display: block; 
+    line-height: 70px;
+    font-size: 1.5em;
+    text-align: center;
+    /* color:#E0FFFF; */
+   color:rgb(6, 57, 84);
+
+    transition: 0.5s;
+    margin-right: 10px;
+  }
+  
+  .navbar ul li a .text {
+    position: absolute;
+    color:rgb(6, 57, 84);
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+    transform: translateY(70px);
+    transition: 0.5s;
+    opacity: 0; 
+    
+  }
+  
+  .navbar ul li.active a .icon {
+    transform: translateY(-32px);
+  }
+  
+  .navbar ul li.active a .text {
+    transform: translateY(10px);
+    opacity: 1;
+  }
+  
+
+
+  .rotator {
+    position: relative;
+   
+    width: 200px;
+    height: 200px;
+    transform-style: preserve-3d;
+    
+    animation: animate 20s linear infinite;
+    margin-right:25%;
+    margin-left:40%;
+  }
+ 
+  @keyframes animate {
+    from {
+      transform: rotateY(0deg);
+    }
+    to {
+      transform: rotateY(360deg);
+    }
+  }
+ 
+    .rotator div{
+    position: absolute;
+    height: 50%;
+    width: 50%;
+    top:0;
+    left:0;
+   
+    transform-origin: center;
+    transform-style: preserve-3d;
+    transform: rotateY(calc(var(--i)*45deg)) translateZ(200px);
+  }
+  
+    .rotator div img{
+    position:absolute;
+    top:0;
+    left:0;
+    width:350px;
+    height: 400px;
+    object-fit: cover;
+  } 
+  
+  .button {
+    position: relative;
+    top:300px;
+    right:0px;
+    left:10px;
+       -webkit-text-stroke: 1px #fff ;
+    /* background: radial-gradient(364px at -6% -6.4%, rgb(95, 75, 139) 16.9%, rgb(128, 204, 221) 88.5%); */
+    background: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(63, 76, 119) 70.2%);
+
+    border:none;
+    font-size: 28px;
+    
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 20px;
+  }
+  
+  .button:after {
+    content: "";
+    background: #f1f1f1;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px !important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+  }
+  
+  .button:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s;
+  }
+
+  img{
+    
+    height:100px;
+    width:100px;
+  }
+
+  /* Add classes to target each list item */
+.navbar ul li a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  width: 100%;
+  font-weight: 500;
+  position: relative;
+}
+
+/* Style the circle */
+.navbar ul li a .circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transform: translateX(-50%) translateY(-50%) scale(0);
+  transition-delay: 0.5s;
+}
+
+/* Adjust the position of the circle and text */
+.navbar ul li a .circle {
+  transform: translateY(-37px) scale(1);
+}
+
+/* Style the text beneath the icon */
+.navbar ul li a .text {
+  position: relative;
+  text-align: center;
+  transform: translateY(10px);
+  opacity: 1;
+  /* margin-top:5px; */
+ 
+}
+
+/* Hide the text initially */
+.navbar ul li a .text {
+  opacity: 0;
+}
+
+/* Show the text when hovering over the list item */
+.navbar ul li a:hover .text {
+  opacity: 1;
+}
+
+/* Adjust the position of the icon and text when active */
+.navbar ul li.active a .icon {
+  transform: translateY(-32px);
+}
+
+.navbar ul li.active a .text {
+  transform: translateY(50px);
+  opacity: 1;
+}

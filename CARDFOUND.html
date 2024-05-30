@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Found Items Page</title>
+    <style>
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: calc(33.33% - 10px); /* Three cards per row with spacing */
+            margin: 5px; /* Added spacing between cards */
+            border-radius: 5px;
+            background: linear-gradient(178.6deg, rgb(232, 245, 253) 3.3%, rgb(252, 253, 255) 109.6%);
+            height:300px;
+        }
+
+        .cardcontainer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+
+        img {
+            border-radius: 5px 5px 0 0;
+            width: 100%;
+        }
+
+        .container {
+            padding: 10px 16px;
+           
+        }
+        body{
+            background: linear-gradient(109.6deg, rgb(204, 228, 247) 11.2%, rgb(237, 246, 250) 100.2%);
+        }
+        .search-box {
+            width: 60%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .search-container {         
+            display: flex;
+            justify-content: center;
+            margin-left:1000px;
+            margin-right:10px;
+        }
+    </style>
+</head>
+<body>
+    <h1><i>Found it: where lost things go to get reunited with their forgetful owners!</i></h1>
+
+    <div class="search-container">
+        <input type="text" class="search-box" id="searchInput" placeholder="Search...">
+        <button onclick="searchFoundItems()">Search</button>
+    </div>
+
+    <div class="cardcontainer" id="cardContainer">
+        <!-- Cards will be dynamically added here -->
+    </div>
+
+    
+    
+
+    <script>
+    
+          // Define the URL of your GET API
+          const apiUrl = 'http://localhost:3000/api/found-items-card';
+
+          // Select the cardContainer element
+          const cardContainer = document.getElementById("cardContainer");
+          const requestOptions = {
+              method: 'GET', // or 'POST', 'PUT', etc.
+              headers: {
+                  'Content-Type': 'application/json' // specify the Content-Type header
+              }
+          };
+  
+  
+  
+          // Fetch data from the API
+          fetch(apiUrl,requestOptions)
+             // .then(response => response.json()) // Parse response as JSON
+             .then(response => {
+              console.log('Response:', response); // Log the response
+              return response.json(); // Parse response as JSON
+  
+          })
+              .then(data => {
+                  console.log(data); 
+  
+                  // Iterate through the retrieved data and create cards
+  
+  
+                  data.forEach(item => {
+                      
+                      console.log('Processing item:', item); // Log each item being processed
+  
+                      const card = document.createElement("div");
+                      card.className = "card";
+  
+  
+  
+                      card.innerHTML = `
+                      <img src="${item.image}" style="max-width: 100%; height: 40%;width:50%;">
+                          <div class="container">
+                              <p><b>Name of Lost item:</b> ${item.name_of_item_found || 'N/A'}</p>
+                              
+                              <p><b>Place where found:</b> ${item.select_place === "None" ? item.place || 'N/A' : item.select_place}</p>
+                              <p><b>Description:</b> ${item.description}</p>
+                              
+                              <p><b>Contact:</b> ${item.contact}</p>
+                             
+  
+                          </div>
+                      `;
+  
+                      cardContainer.appendChild(card); // Append card to the container
+                  });
+             
+              })
+
+
+              function searchFoundItems() {
+            const searchTerm = document.getElementById("searchInput").value;
+            const apiUrl = `http://localhost:3000/api/found-items/search?name=${searchTerm}`;
+            
+            // Fetch data from the API
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    displaySearchResults(data); // Call the function to display search results
+                })
+                .catch(error => {
+                    console.error('Error fetching search results:', error);
+                });
+        }
+
+
+
+        // Function to display search results
+function displaySearchResults(searchResults) {
+    // Select the cardContainer element
+    const cardContainer = document.getElementById("cardContainer");
+
+    // Clear the cardContainer before adding cards
+    cardContainer.innerHTML = '';
+
+    // Iterate through the search results and create card elements
+    searchResults.forEach(group => {
+        group.items.forEach(item => {
+            const card = document.createElement("div");
+            card.className = "card";
+
+            card.innerHTML = `
+            <img src="${item.image}" style="max-width: 100%; height: auto;">
+                        <div class="container">
+                            <p><b>Name of Found item:</b> ${item.name_of_item_found || 'N/A'}</p>
+                            <p><b>Place where found:</b> ${item.select_place || item.place || 'N/A'}</p>
+                            <p><b>Description:</b> ${item.description || 'N/A'}</p>
+                            <p><b>Contact:</b> ${item.contact || 'N/A'}</p>
+                        </div>
+            `;
+
+            cardContainer.appendChild(card); // Append card to the container
+        });
+    });
+
+    // Check if search results are empty and display a message if so
+    if (searchResults.length === 0) {
+        cardContainer.innerHTML = '<p>No search results found</p>';
+    }
+}
+    
+    </script>
+</body>
+</html>

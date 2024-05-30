@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .profile-info {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 10px;
+            margin-left: 70px;
+            width:800px;
+            margin-top:50px;
+            
+        }
+        .items-column {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .item {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .item img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .delete-btn {
+            margin-left: auto;
+            cursor: pointer;
+            color: red;
+        }
+        
+       
+        .img__container img {
+            width: 300px; /* Adjust the width as needed */
+            height: 300px; /* Adjust the height as needed */
+            margin-left: 100px;
+           
+        }
+        .profile-info-container {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            margin-top: 40px;
+            margin-left: 100px;
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="header__wrapper center-align">
+        <div class="cols__container center-align">
+            <div class="left__col center-align">
+                <div class="profile-info-container">
+                  <div class="img__container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/219/219969.png" alt="user"/>
+    
+                
+                </div>
+        <div class="profile-info">
+            <h2>User Profile</h2>
+            <p><strong>Name:</strong> <span id='user-name'></span></p>
+            <p><strong>Email:</strong> <span id='user-email'></span></p>
+            <p><strong>Contact Number:</strong> <span id='user-contact'></span></p>
+        </div>
+        </div>
+    
+</div>
+</div>
+</div>
+        <div class="container">
+            <div class="items-column" id="lost-items">
+                <!-- Lost items will be displayed here -->
+            </div>
+            <div id="found-items" class="items-column">
+                <!-- Found items will be displayed here -->
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        async function fetchUserProfile() {
+            let urlParams = new URLSearchParams(window.location.search);
+            let userEmail = urlParams.get('useremail');
+
+            if (userEmail) {
+                try {
+                    // Fetch user profile data from the backend using the email
+                    const response = await fetch(`http://localhost:3000/api/profile.html?useremail=${userEmail}`);
+                    if (response.ok) {
+                        const userData = await response.json();
+                        console.log(userData);
+                        displayUserProfile(userData);
+                    } else {
+                        console.error('Error fetching user profile:', response.status);
+                    }
+                } catch (error) {
+                    console.error('Error fetching user profile:', error);
+                }
+            } else {
+                console.error('User email not found in URL.');
+            }
+        }
+
+function displayUserProfile(profileData) {
+    const userProfile = profileData.user;
+        if (userProfile) {
+            // Update the DOM with user profile data
+            const userNameElement = document.getElementById('user-name');
+            if (userNameElement) userNameElement.textContent = userProfile.name || '';
+            const userEmailElement = document.getElementById('user-email');
+            if (userEmailElement) userEmailElement.textContent = userProfile.email || '';
+            const userContactElement = document.getElementById('user-contact');
+            if (userContactElement) userContactElement.textContent = userProfile.contact || '';
+        } else {
+            // Display an error message if the user profile is not found
+            errorMessageContainer.textContent = 'User not found';
+        }
+
+        const lostItemsContainer = document.getElementById('lost-items');
+        // Display lost items
+        const lostItems = profileData.lostItems;
+            lostItemsContainer.innerHTML = '<h2>Lost Items</h2>';
+            lostItems.forEach(item => {
+                lostItemsContainer.innerHTML += `
+                    <div>
+                        <p><strong>Name of Item Lost:</strong> ${item.name_of_item_lost}</p>
+                        <p><strong>Description:</strong> ${item.description}</p>
+                        <p><strong>Place:</strong> ${item.place}</p>
+                        <img src="${item.image}" alt="${item.name_of_item_lost}">
+                    </div>
+                `;
+            });
+
+        // Display found items
+        const foundItemsContainer = document.getElementById('found-items');
+        const foundItems = profileData.foundItems;
+            foundItemsContainer.innerHTML = '<h2>Found Items</h2>';
+            foundItems.forEach(item => {
+                foundItemsContainer.innerHTML += `
+                    <div>
+                        <p><strong>Name of Item Found:</strong> ${item.name_of_item_found}</p>
+                        <p><strong>Description:</strong> ${item.description}</p>
+                        <p><strong>Place:</strong> ${item.place}</p>
+                        <img src="${item.image}" alt="${item.name_of_item_found}">
+                    </div>
+                `;
+            });
+    }
+
+    async function deleteLostItem(itemId) {
+    try {
+        const response = await fetch(`/api/lost-items/${itemId}`, {
+            method: 'DELETE'
+        });
+        if (response.ok) {
+            console.log('Lost item deleted successfully');
+            // Implement logic to remove the item from the UI
+        } else {
+            console.error('Failed to delete lost item:', response.status);
+        }
+    } catch (error) {
+        console.error('Error deleting lost item:', error);
+    }
+}
+
+function removeLostItemFromUI(itemId) {
+    const lostItemElement = document.getElementById(itemId);
+    if (lostItemElement) {
+        lostItemElement.remove(); // Remove the item element from the DOM
+    } else {
+        console.error('Lost item element not found:', itemId);
+    }
+}
+
+        // Call fetchUserProfile function when the page loads
+        window.onload = fetchUserProfile;
+
+      
+    </script>
+</body>
+</html>
+
+

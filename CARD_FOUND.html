@@ -1,0 +1,310 @@
+ 
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+            *, *:before, *:after {
+              box-sizing: border-box;
+            }
+            
+            body {
+              min-height: 100vh;
+              font-family: 'Raleway', sans-serif;
+            }
+            
+            .container {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              overflow: hidden;
+            }
+            
+            .container:hover, .container:active {
+              .top:before, .top:after, .bottom:before, .bottom:after {
+                margin-left: 200px;
+                transform-origin: -200px 50%;
+                transition-delay: 0s;
+              }
+              .center {
+                opacity: 1;
+                transition-delay: 0.2s;
+              }
+            }
+            
+            .top:before, .top:after, .bottom:before, .bottom:after {
+              content: '';
+              display: block;
+              position: absolute;
+              width: 200vmax;
+              height: 200vmax;
+              top: 50%;
+              left: 50%;
+              margin-top: -100vmax;
+              transform-origin: 0 50%;
+              transition: all 0.5s cubic-bezier(0.445, 0.05, 0, 1);
+              z-index: 10;
+              opacity: 0.65;
+              transition-delay: 0.2s;
+            }
+            
+            .top:before {
+              transform: rotate(50deg);
+              background: radial-gradient(circle at 12.3% 19.3%, rgb(85, 88, 218) 0%, rgb(95, 209, 249) 100.2%);                        }
+            
+            .top:after {
+              transform: rotate(130deg);
+              background: #00CED1;              
+                       }
+            
+            .bottom:before {
+              transform: rotate(-80deg);
+              background: #318CE7;
+            }
+            
+            .bottom:after {
+              transform: rotate(-170deg);
+              background: #87CEFA;
+            }
+            
+            .center {
+              position: absolute;
+              width: 400px;
+              height: 400px;
+              top: 50%;
+              left: 50%;
+              margin-left: -200px;
+              margin-top: -200px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              padding: 30px;
+              opacity: 0;
+              transition: all 0.5s cubic-bezier(0.445, 0.05, 0, 1);
+              transition-delay: 0s;
+              color: #333;
+            }
+            
+            .center .input {
+              width: 100%;
+              padding: 15px;
+              margin: 5px;
+              border-radius: 1px;
+              border: 1px solid #ccc;
+              font-family: inherit;
+            }
+
+            
+              #textarea {
+                width: 100%;
+                height: 50px;
+                padding: 15px;
+                margin: 5px;
+                border-radius: 1px;
+                border: 1px solid #ccc;
+                font-family: inherit;
+              }
+         
+              input[type="file"] {
+                width:100%;
+                padding: 15px;
+                border-radius: 1px;
+                border: 1px ;
+                font-family: inherit;
+            }
+          
+           .place{
+            width: 100%;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 1px;
+            border: 1px solid #ccc;
+            font-family: inherit;
+          }  
+   .select_place{
+    width: 100%;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 1px;
+            border: 1px solid #ccc;
+            font-family: inherit;
+   }
+          
+            
+        </style>
+      </head>
+      <body>
+       <form id="foundpage" method="post" enctype="multipart/form-data"">
+        <div class="container" >
+            <div class="top"></div>
+            <div class="bottom"></div>
+            <button class="cta"><i class="fas fa-chevron-down fa-1x"></i></button>
+            <div class="center">
+                <h2>Finders, Keepers, Seekers!</h2>
+                <input type="text" name="txt" placeholder="Name of item Found" required="" class="input" height="30px" width="30px" id="name_of_item">
+
+                <select class="select_place" id="select_place" onchange="handlePlaceSelect()">
+                  <option value="" disabled selected >Select a place</option>
+                  <option value="jaggi" id="jaggi">jaggi</option>
+                  <option value="cos" id="cos">Cos</option>
+                  <option value="None" id="none">None</option>
+                </select>
+
+                <input type="text" name="place" placeholder="Place where item Found" class="input" id="place" required disabled >
+
+                <!-- <input type="text" placeholder="Place where item Found" name="place" class="input"> -->
+                <textarea id="textarea" rows="50" placeholder="Description of item found" class="input" ></textarea>
+                <input type="file" id="image" name="image" accept="image/*" class="file"  >
+        
+                <input type="tel" name="txt" placeholder="Contact no." required="" class="input" id="contact" required height="30px" width="30px" >
+
+                <input type="submit" value="Submit" id="submit">
+                
+                
+                
+            </div>
+        </div>
+       </form>
+      </body>
+      
+        <script>
+        
+          function handlePlaceSelect() {
+            // Get the selected place from the dropdown list
+            const selectedPlace = document.getElementById("select_place").value;
+    
+            // Check if the user has selected "None"
+            if (selectedPlace === "None") {
+                // Enable the input field for the place name
+                document.getElementById("place").disabled = false;
+            } else {
+                // Disable the input field for the place name
+                document.getElementById("place").disabled = true;
+            }
+        }
+    
+        document.addEventListener('DOMContentLoaded', function() {
+    
+            var cta = document.querySelector(".cta");
+            var check = 0;
+    
+            cta.addEventListener('click', function(e) {
+                var text = e.target.nextElementSibling;
+                var loginText = e.target.parentElement;
+                text.classList.toggle('show-hide');
+                loginText.classList.toggle('expand');
+                if (check == 0) {
+                    cta.innerHTML = "<i class=\"fas fa-chevron-up\"></i>";
+                    check++;
+                } else {
+                    cta.innerHTML = "<i class=\"fas fa-chevron-down\"></i>";
+                    check = 0;
+                }
+            });
+    
+            document.getElementById("select_place").addEventListener("change", handlePlaceSelect);
+    
+            function validateForm() {
+                const nameOfItem = document.getElementById("name_of_item").value;
+                const contact = document.getElementById("contact").value;
+    
+                // Check if "Name of item Found" is filled and "Contact no." is a positive 10-digit number
+                if (nameOfItem.trim() === '') {
+                    alert("Please fill in 'Name of item Found'.");
+                    return false; // Prevent form submission
+                }
+    
+                if (!/^\d{10}$/.test(contact)) {
+                    alert("Please provide a valid 10-digit positive number for 'Contact no.'.");
+                    return false; // Prevent form submission
+                }
+    
+                // If both conditions are met, the form will be submitted
+                return true;
+            }
+    
+            function handlePlaceSelect() {
+                // Get the selected place from the dropdown list
+                const selectedPlace = document.getElementById("select_place").value;
+    
+                // Check if the user has selected "None"
+                if (selectedPlace === "None") {
+                    // Enable the input field for the place name
+                    document.getElementById("place").disabled = false;
+                } else {
+                    // Disable the input field for the place name
+                    document.getElementById("place").disabled = true;
+                }
+            }
+    
+            document.getElementById("foundpage").addEventListener('submit', async function(event) {
+                event.preventDefault();
+    
+                // Get other form data
+        const formData = new FormData();
+        formData.append('name_of_item_found', document.getElementById('name_of_item').value);
+        formData.append('select_place', document.getElementById('select_place').value);
+        formData.append('description', document.getElementById('textarea').value);
+        formData.append('place', document.getElementById('place').value);
+        formData.append('contact', document.getElementById('contact').value);
+        // Append the image file to the form data
+        formData.append('image', document.getElementById('image').files[0]);
+    
+        console.log(formData);
+    
+                // Validate the form before submitting
+                if (validateForm()) {
+                    console.log("Form validation passed. Submitting form...");
+                    // Form submission logic here
+             
+                try {
+                    const response = await fetch("http://localhost:3000/api/foundpage", {
+                        method: 'POST',
+                        headers: {
+                            //'Content-Type': 'application/json'
+                            //'Content-Type': 'multipart/form-data'
+                        },
+                        //body: JSON.stringify(user)
+                       body:formData
+                     
+                    });
+            
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok.');
+                    }
+    
+                    if (response.status === 400) {
+                        const errorData = await response.json();
+                        console.log('Validation Error:', errorData);
+                        // Handle validation error, e.g., display error messages to the user
+                    }
+                    
+            
+                    const data = await response.json(); // Parse the JSON response
+                    console.log('Success:', data);
+                    alert('Found data input successfully!');
+                    window.location.reload();
+                 //   window.location.href="http://127.0.0.1:5501/CARDFOUND.html";
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Found data input failed. Please try again later.');
+                }
+            } else {
+                console.log("Form validation failed. Form not submitted.");
+            }
+                // Handle validation errors from the server response
+    
+            });
+            
+        });
+    
+  
+    </script>
+      </html>
+
+     

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<head>
+<link rel="stylesheet" href="signIn.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"> -->
+<title>SignUp-SignIn</title>
+</head>
+<body>
+ 
+    <div class="login-signup" id="main">
+        <div class="sign-in">
+            <form id="signinform" method="post">
+                <h1>Sign In</h1>
+                <input type="email" name="email" placeholder="Email" required="" class="email2" id="email2">
+                <input type="password" name="pswd" placeholder="Password" required="" class="pswd2" id="pswd2">
+                <!--  -->
+                <button id="signIn" type="submit">Sign In</button>
+                <p id="link">Not a user? <a href="http://127.0.0.1:5502/signUp.html">Sign Up</a> </p>
+                <!-- Error message container -->
+                <div id="error-message" style="color: red;"></div>
+               </form>
+        </div>
+       
+    </div>
+
+    <div class="overlay-right">
+      
+    <h1 id="text">Welcome Back !</h1>
+    <p>To keep connected with us please </p>
+    <p>login with your personal info...</p>
+     
+   
+</div>
+
+<script type="text/javascript" defer>
+    document.addEventListener('DOMContentLoaded', function() {
+       // const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+       const signInForm = document.getElementById('signinform');
+        const main = document.getElementById('main');
+        const errorMessageContainer = document.getElementById('error-message');
+
+        console.log("signin",signinform); 
+
+        signInButton.addEventListener('click', function() {
+            console.log('Sign In button clicked');
+           // main.classList.add("right-panel-active");
+        });
+
+//API FOR SIGN IN
+  
+signInForm.addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    var email = document.getElementById('email2').value;
+    var password = document.getElementById('pswd2').value;
+
+    // Reset error message container
+   errorMessageContainer.textContent = '';
+
+    // Create user object
+    var User = {
+        email: email,
+        password: password
+    };
+
+    try {
+    // Get the current URL
+    const currentUrl = window.location.href;
+    
+    // Parse the URL to extract query parameters
+    const urlParams = new URLSearchParams(currentUrl.split('?')[1]);
+    
+    // Get the value of the 'emailofuser' parameter
+    const emailOfUser = User.email;
+    
+    // Use the extracted email value in your fetch request
+    const response = await fetch(`http://localhost:3000/api/signin`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(User)
+    });
+
+    if (response.ok) {
+        // If sign-in is successful, redirect to the homepage with a success parameter
+        window.location.href = `http://127.0.0.1:5502/DEMOHTML.html?success=true&useremail=${emailOfUser}`;
+        alert('User signed in successfully!');
+    } else {
+        // If sign-in fails, reload the current page
+        window.location.reload();
+        throw new Error('Network response was not ok.');
+        errorMessageContainer.textContent = responseData.message;
+    }
+} catch (error) {
+    console.error('Error:', error);
+    alert('Signing In failed.');
+    errorMessageContainer.textContent = 'An unexpected error occurred.';
+}
+
+    // try {
+    //     // Send user data to backend using fetch API
+    //     const response = await fetch('http://localhost:3000/api/signin', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(User)
+    //     });
+       
+    //     if (response.ok) {
+    //         // If sign-in is successful, redirect to the homepage with a success parameter
+    //         window.location.href = 'http://127.0.0.1:5500/Lost-Found-Website/DEMOHTML.html?success=true';
+    //         alert('User signed in successfully!');
+    //     } else {
+    //         // If sign-in fails, redirect to the homepage with a failure parameter
+    //        // window.location.href = 'http://127.0.0.1:5501/DEMOHTML.html?success=false';
+    //        window.location.reload();
+    //         throw new Error('Network response was not ok.');
+    //         errorMessageContainer.textContent = responseData.message;
+            
+    //     }
+    // } catch (error) {
+    //     console.error('Error:', error);
+    //     alert('Signing In failed.');
+    //     errorMessageContainer.textContent = 'An unexpected error occurred.';
+    // }
+});
+
+
+
+    });
+</script>
+</body>
+</html>

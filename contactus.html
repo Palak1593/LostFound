@@ -1,0 +1,177 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(90deg, rgba(2,0,.6,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .contact-form {
+            background-color: lightblue;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #564caf;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .required::after {
+            content: " *";
+            color: red;
+        }
+
+        .left-image,
+        .right-image {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 250px; /* Adjust the height as needed */
+            transition: 1s;
+            z-index: 0;
+        }
+
+        .left-image {
+            left: 0;
+        }
+        .left-image:hover {
+            transform: scale(1.1);
+            z-index: 2;
+        }
+
+        .right-image {
+            right: 0;
+        }
+        .right-image:hover {
+            transform: scale(1.1);
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="contact-form">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQwAAACuCAMAAAD08cPwAAAAbFBMVEUAo63///+c0dbR6etrvsX0+vq43eAmqrNCsblYuL/d7vCNy9B9xcuq19vp9PXF4+ZVwsiI1Nl3ztOZ2t7l9vfS7/H3/Py/6Oqs4eTb8vMjsLhmyM49ucEutLzG6u1tytCv4uWf3OCB0tZKvsV9q1HGAAAPgUlEQVR4nNWda4OiIBSGFTXNynK6TpepZv7/f1zlooCAB8F03/2yE2nwCIfD4WIQzkGnw/HnfHnvy/KLqizL/ft1Ph5OH8xG8MHf6ig5vvbP3f2RBgal1/vuWV6Oxfj5mQjG96u83Y0MFFQeu/L1PWauPg/j+/20xSDocdsfR2o7H4Vx+in/XDhwRJ6Xg//8fQ7Gsbx74dACuV0825HPwEgut6tfEgzI74/HbH4ARvH+GwUEVbp7+TIhY8NIxiVBtbskPjI7Lozz7QMkKI+ze3ZHhFGU49gJndKvo2OOR4Px87lK0er+djIfI8F4ee5GwUq/HHzUMWCc3o+JUGDtBve2I8B4f9ZUKHR/Dcu5dxiXSWsF02MQDs8wzrNAUWsIDq8wDrupEfC6W3seHmGcvqYuvqydZc/iD8Z5crup0NNqXOsLRjGFjwVQuv88jIufmM0YusOddC8wkplWC6ovqI/uA8bPHK0FryvQJ/UAo5y6rADBKoczjGRWvoVWD4jlcIVxnHsTaQToVhxhvKYuooV2vaFBNxj/g7lode1rKi4wTvPuURXqGbw5wDh9Iu5tUIyW1teUI8FIporsUS2qPCDrq3amPnYwjGLiyMUaZ8L+urvBjA6FMTWLYEOyb6+HfsZ6IIzJWQTRUBjBVRvlGAYjmZwFgZEMulRLYxCMqW1nLQwjGnZtqqExCMbEfSpW4gBDVzeGwJiFr4Vzshl6tZrGABjz8MFxVuz9DKarKjhqD+PlrTxOwnlZDb/+ofA3rGEczb+RoWj447IRzkzscIM/dxiFOX6R1rwHt2QLxTg39oMTTk9nGD0dCcJfynozstzkFdiF4snqU2qt0TaK0JrBABTZoE64xxJGn/EkTnJbkngRbbpo0gW7n1yJ9CmVsgVr5wnyASOQ48R2MH76bi/CSLc45/JTXnKWfAFMqbTiTZ6Tm8F0lYYpVjCS3oAn4mGkOb1MnGFaCnYcgVICMmSX5ApDNqJWMPq9LR4GYyEVq/2YkIKkBKzOVZ9GUVN93C21GOyxgXHuv3nMwWgfpfAEaam2iKavASk0fFG1HWyAMqSAPExCWNQCRn8jEWCsuSu5byzxJ3nW/Bf1p9AuOyyarpQ0KAefi+nBR74sYDwB987ITZvs51nMPqDCNjVP2/9H/Sm0luWc7Vk30B3FNxQ4jN6eBKuB0WRfhEFo0d4W8UXWp7A03sVCvmAE3JANDgMWz2EwcIXA3YgIA9sFVv9xiRa9KfRPwUIg8bYO4noUMIw97NYMRtQ8OfGZFtzjJ7UH9aYEQR7KHbQ/GMHFGkYCXI1SfzenFQM1nzT1GVvGLfsr4dL0KbSViP1oDWNAbFyla2NDoTB+gXeuvxuRilGkzSdNsYT6jv9IelMq37P+UxyUbUIPPhdVY0OBMA7QZUoERsYREGAsuGKR7hH1ppA0KfYbeYSRMi8OCAPSrWLVX97i3EfcJ41DgE0J+S8pcdP89CnKkuch16hc9WUF4wC+L36k2MeI+U/4ZFKsNRmHrPtTpFtoPxquNLGBAa4Y2Ayiuo03/WIHRv1AM+pxt1ZRn6Iq+dIrDGY1QDDgZpv0InUdbuxdyJGhZWgCE60noU8JBAtEtfILIz3BYcDXQRMYId/EQ+4vnBxF7L5IulCZQtNEGJvOl9y0B8M4wVe84nzXA4u2xdef5HwyU76UL1SmKGHknmE8wDDe8Juu6CVcw8L5pv/nilyIQ059igoGGav4DMP/QGFYzDLTQAOfT1z16aNuihwpC6xMoSNUPrhBf4a3sRtHNDcgDNhwlc+lEB/HMFgJSXmRInyuT8kkFyyg4xje9UCuLhg2oQAYNlOrLFjFfYRDE6xzwKnKKwttSi6XnFWj1imteXUCyHZ6gWBAh2hYtDvgqzo/zkCdVKZFT0oYctlgsdImCp+HkMkao3YgGBbms4HBZ4zYVNT+V4V30ZfCt5Ma6YKvLfUfrsHhup30w7BamEKeWc5/lNGyxOstu2UulTmLzCnEEWP9LUaa5U1NwhNPVvVXqTMAhl3QgFwjPiVhAoDS4h2JFCVtiZUpZOyQkA6FBsFIi1vEMcLWRuhsBukLAAMY4aIi14g5W3F3S9g80YJ+J10zB3ytTYlZJ1UgRD5LsmZwReRhAPsAwLBbskSukWxZ1N5tzc0gRJXaEq0MKW3Egaq2H4j7W25dg5T0wrBcT0cukj5sZsrwrOtG+TsrY4rorZNelJt/czcYtc69MC52N8RPsOP+pLhdJwuSZ0WZk2VPijDrvCX3yRgNL/WiHsf3wbBczIbrrqqXy+LWMq4T6UcWaW9KsOzO3JL1C7mHeTWsXS8My41GaQR5UOmCK3SyyCApFalFVb9ycblHHPvbQ/rog/Ht7adEpatF/aSLaCP3ifqU0XXqgWHXsf7n+u6BMYv1r5/SuQfG9AvmP6i9GYanCbz/RL9mGK+p8/dRPc0woDOsemVogyY5QWGJFlG0RTZLOG5mGM57KXDIbnBAjvfU7LRqBjMFPDa6M8NwfqYLl9vUw91BMZulGDWAEjXDcHe5yIB1WEQuHQpyKTn1CZDGnxGGVcRPKVJbh11L4iD267ZkFlLkTS8zDHeXC99mYAcNXZQviUV9IhTHKxpBhY3lzDCcj4Mg8c+BBnTgZk0Sac1pjSLjfNjjMNoM+KoMnUhMZuCMRmRRw/U/SYJkIKth7FrdR2kkZwMn/obVKmHOqhY2PaARsNHpct+xSZr9wLG4EWS2RmileN5Zh2AGfh4md3zYdmJBwo4LS5FapTZ9MY0x551b11clotEFw6gGaue/+1sJw71jpUHNYT4Xv0FBeVss2SnLOiVP9UwlvQIcWf7qkPDSShx277NaxYFcLujGyC2fS/mZr+Tdk4pFpBodA+JlKo4qcu9L4BvWVbv0pIWx7aJjaUtSXzlzcIs/Vf+wumdnglf49WSkH4Z6l95CuhbXh0KcPALcvrsGX6drGNBgViqfVOSjYnQ6hDVadQ2IZpdeJP1NvkAdzGSzjleKKf+OcCMpQFarniqgPrd8bpOXg9lEGHhWJJFtmW6XXiSBDEnNwBWGTqcsZNgdrUAtiei3gsFcq1Q4t8lDVxJIe7RZYxCfpHaXnrixgPlgotfQZ5P0i2MUelUw2nH6ra2vlrOKGmU8jMYwiN65dpee/EzJzCUSbkDmqnU/r9lWqxOeeOaGY0+yB/jgaYaA35bM2T3+K/pdevJXSS0oxOGKoqo1InUuhw57yZIEseT33c7b/AAHg59G55uwdpcerlX8aLNZwxPLH6ofPbFF8EjZE8MAbFcdKEwAP0i29iaVSqPfpRfL5oCt8hBa2UJoWbwwC3ATCfByv8BqNbSl1k2BcKbr8FskwtDv0ovl58pgCF2D1ovAkWhwE6lFF7j5cK+UakoXN7YxEjOv36UXy8WkMMS+QwsjCi3XbbCljz2HpQxXk9XWZxBhGHbpYRid9aRyP6mDAR+QML0pDLvVjRZiWW1thwTDsEuvs4uXwhCftg5GIRuXXiUMhh8PqytWIG4tvQjDsEtPA0PysFC3suB7ae2qTu1C+tNIBwHTAvHNPxLMomGXHuKtSfOBXAs0XetK/bFB3BaLkdakIPLg6+fPxkriRsT2WXd26XW2NBMYkh0oZGTcd21g8JtvRqoa5MELoaYuDM0uPQ0M8QcywcxI37WZmSw5GCNVDQJD2KkdhZw/bdqlp4ahMhmK1cHYwbGYZaATTxTGaZQlOgRGHqp3+Zp36alhSE+7UJiRWoJjCxANe7Lo+Cg+eV3MJOMrBoHBrKRpl54ahljwlbbMuZ3ROIgw/ARzJGEDgfiKQTpTwbEi6uzSU8MQypfqz6daW9UMdpZbAwO89d9CGEYumDjh+fbu0uv4GXz5aFhI/fzXucXK4YMMYwzPCx8cIVZu8cgUQkK/S4/3m0K+gQXN0nEPRyX8hh0YIzQUZhq5wmIYzITg3kQdxicl5ezlirYmioPuywEvRDGo3bnCweg50HGA2CQg9xE/T0bruWGXXmt4m7BxEiGENk3gVNsWluBV5e2cET/X6r1HoTD4LoBbsaE57a5WEy9lZe2uxiHSDcY2RlCCHu3dhIln95WOolQTG6RU0Tre4FAUrjnKXXpcNDeVJ46YdLMESEdZIW6KRJyF93xsNIEheoLC5GBCv6HapUfiw+EWoW27oU+oIIXWkaBhfoijwR+RKsLwfLg6KaroNWb8762Y8VLt0lMdeZy1LE0LPEMwjCuPV1qfcfBqRAkMqely6wlWgWmXHnc4YP0BdeTTFaq+uDG/zoNeA2gmwvmo8mKVo0/fi6wdkLPNVhSQiUbDLj2uRVW2QxjV9AjsgvwKv9pZuWNzJkKfVKPugK1lZnuuDLv0GhpRFljBWPN3Meguvu2ku4zJYweLbaBqJJ3FXHM27NKL6y1a+QaXygZGsNoq/VpJ8jsLFGu6XtBf7BcCPR/TLr1W/AktnvSSSq5a4Pby+5MAQXbphd5hdF6QpFzt9/L6m57kHcauU2710sefGb5x1DcMxcuRNOtAZ/gWQc8wVK+x0C2KPczg5TaCUr8wlC+/0a4QPs3sbZtezuNvlCrf4GpYLj2Pl7oweYWhZmHcC3+ekxn1CUPDwnwwwJwMh08Yurccm3cvzui99wSGj7qqqxf9Z+6c59LHuuzWEKR/wV7/AURzeYezLxiGVy9Czva7zMKOeoJxV8XPLGCExRxO0fAD42Z8JTrsQOUZWA4vMHreAA6DMYNuRbmKyU5pd1PNIBhh+D2xIXWHcTeYTksYVVuZ9MyZtSuML6O5sIURnvYT9iuOZyhf+5qILYzK6Sinw4EDwkOPg92ZetSBMKpudjJLmm67y3ugl176CzYERjV6G23d/Vja9VrOwTDq2jELnxQokLUYDqOyHb//DQ5AJ+IIo+5Z/ovD3Xb6IapHGJXOc3gJuFEPeAtxhVF5pc85t5br27Y8TjCq1vKeUWRQ0HVvYSz8wKh0nGP1SEt7FD5gVNXjNZNoGNOQWuELRqViP5/m8gD6m6PBqHQoZ8Fjp419fxJGOAMe1xLqeSvlFUal4j2d/djJK3Fs5RtGpdP5OUHI9L7XrKi20Agwah32u092uI/Syu3WaSQYtY7l30eA3N0MBacRYdQ67nejNpnr7QKKYcE0Moxah8vzPkYVSf9K+QgpR30ABtb32yuRCoSDP6HTp2BgHc7l7eGKJL1/XbyYy64+CoOo+LmUt/sAU5Leb/uzL2Op0gQwqE7f5/3v7e/RT+V6/3uWlx+PllKj6WC0Sg7H82W/L7++brcd0e12e36V+8vr/O3uS4H1DwNWoU6UnXUdAAAAAElFTkSuQmCC" alt="Left Image" class="left-image">
+    <h2><b>Contact Us</b></h2>
+    <form id="contactForm">
+        <label for="name" class="required"><i class="fas fa-user"></i><i> Name:</i></label>
+        <input type="text" id="name" name="name" placeholder="enter you name" required>
+
+        <label for="email" class="required"><i class="fas fa-envelope"></i><i> Email-ID:</i></label>
+        <input type="email" id="email" name="email" placeholder="enter your email id" required>
+
+        <label for="subject"><i class="fa-solid fa-s"></i><i> Subject:</i></label>
+        <input type="text" id="subject" name="subject">
+
+        <label for="message"><i class="fas fa-comments"></i><i> Message:</i></label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+
+        <button type="submit" onclick="sendMessage()" id="button">Send Message </button>
+    </form>
+    <img src="https://static.vecteezy.com/system/resources/thumbnails/020/804/109/small/communication-and-technology-concept-hand-putting-wooden-block-cube-symbol-telephone-email-address-website-page-contact-us-or-e-mail-marketing-contact-us-in-customer-support-concept-photo.jpg" alt="Right Image" class="right-image">
+</div>
+
+<script>
+    function sendMessage() {
+                  
+    const contactForm = document.getElementById('contactForm');
+    
+    contactForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+    
+        var name = document.getElementById('name').value;
+        var email = document.getElementById('email').value;
+        var subject = document.getElementById('subject').value;
+        var message = document.getElementById('message').value;
+        
+        if (name.trim() === '' || email.trim() === '' || subject.trim() === '' || message.trim() === '') {
+            alert('Please fill in all the fields.');
+            return; // Stop further execution if any field is empty
+        }
+        else {
+    // Regular expression for email validation
+    var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regex.test(email)) {
+        alert('Invalid Email address');
+        return; // Stop further execution if email is invalid
+    }
+        try {
+            // Create user object
+        var User = {
+            name: name,
+            email: email,
+            subject: subject,
+            message: message
+        };
+            // Send user data to backend using fetch API
+            const response = await fetch('http://localhost:3000/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(User)
+            });
+           
+            if (response.ok) {
+                
+                alert('User contacted successfully!');
+                window.location.reload();
+                
+            } else {
+                // If sign-in fails, redirect to the homepage with a failure parameter
+              // window.location.reload();
+                throw new Error('Network response was not ok.');
+                
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Contacting failed.');
+        }
+    }
+    });
+    
+    
+}
+    
+    
+
+</script>
+<script src="https://kit.fontawesome.com/7a820b96d4.js" crossorigin="anonymous"></script>
+</body>
+</html>
